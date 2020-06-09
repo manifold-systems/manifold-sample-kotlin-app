@@ -6,19 +6,19 @@ reference to set up Manifold with your own Kotlin applications.
 
 See also [Using Manifold with Kotlin](http://manifold.systems/kotlin.html).
 
-## Android Studio
+## IntelliJ IDEA
 
-Use Android Studio to edit, build, and execute this project.
+Use IntelliJ IDE to edit, build, and execute this project.
 
 Run the `com.example.server.MovieServer` class to start the sample GraphQL server.
-Run the `com.example.client.MovieClient` class to execute a run GraphQL client against the server.
+Run the `com.example.client.MovieClient` class to run a GraphQL client against the server.
 
-## Manifold plugin for Android Studio
+## Manifold plugin for IntelliJ IDEA
 
-Install the Manifold plugin directly from Android Studio from `Settings | Plugins | Marketplace` and search for
+Install the Manifold plugin directly from IntelliJ via `Settings | Plugins | Marketplace` and search for
 "Manifold".
 
-You must restart Android Studio to use the plugin.
+You must restart IntelliJ to use the plugin.
 
 
   

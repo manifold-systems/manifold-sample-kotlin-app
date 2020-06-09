@@ -13,7 +13,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation project(':ManifoldResources')
-    implementation 'systems.manifold:manifold-graphql-rt:2020.1.12-SNAPSHOT'
+    implementation 'systems.manifold:manifold-graphql-rt:2020.1.13'
     implementation 'com.sparkjava:spark-core:2.7.2'
     implementation 'org.slf4j:slf4j-simple:1.7.13'
     implementation 'com.graphql-java:graphql-java:13.0'

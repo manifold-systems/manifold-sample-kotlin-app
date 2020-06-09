@@ -19,13 +19,13 @@ configurations {
 }
 
 dependencies {
-    compileOnly 'systems.manifold:manifold-graphql:2020.1.12-SNAPSHOT'
-    implementation 'systems.manifold:manifold-graphql-rt:2020.1.12-SNAPSHOT'
+    compileOnly 'systems.manifold:manifold-graphql:2020.1.13'
+    implementation 'systems.manifold:manifold-graphql-rt:2020.1.13'
 
     testImplementation 'junit:junit:4.12'
 
     // Add manifold to -processorpath for javac
-    annotationProcessor 'systems.manifold:manifold-graphql:2020.1.12-SNAPSHOT'
+    annotationProcessor 'systems.manifold:manifold-graphql:2020.1.13'
 }
 
 tasks.withType(JavaCompile) {
