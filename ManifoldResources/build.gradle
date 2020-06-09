@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+targetCompatibility = 8
+sourceCompatibility = 8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+configurations {
+    // give tests access to compileOnly dependencies
+    testImplementation.extendsFrom compileOnly
+}
+
+dependencies {
+    compileOnly 'systems.manifold:manifold-graphql:2020.1.12-SNAPSHOT'
+    implementation 'systems.manifold:manifold-graphql-rt:2020.1.12-SNAPSHOT'
+
+    testImplementation 'junit:junit:4.12'
+
+    // Add manifold to -processorpath for javac
+    annotationProcessor 'systems.manifold:manifold-graphql:2020.1.12-SNAPSHOT'
+}
+
+tasks.withType(JavaCompile) {
+    if (JavaVersion.current() != JavaVersion.VERSION_1_8 &&
+            sourceSets.main.allJava.files.any { it.name == "module-info.java" }) {
+        // if you DO define a module-info.java file:
+        options.compilerArgs += ['-Xplugin:Manifold', '--module-path', it.classpath.asPath]
+    } else {
+        // if you DO NOT define a module-info.java file:
+        options.compilerArgs += ['-Xplugin:Manifold']
+    }
+    // compile .graphql files
+    options.compilerArgs += ['-Amanifold.source.graphql=.*']
+}
