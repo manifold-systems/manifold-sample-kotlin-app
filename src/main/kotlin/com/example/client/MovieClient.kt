@@ -10,7 +10,6 @@ import com.example.schema.queries.*
  * This simple client demonstrates type-safe usage of the sample [queries] schema file `queries.graphql`
  * using Manifold.
  *
- *
  * Remember to run the `MovieServer` before running this class :)
  */
 object MovieClient {
@@ -27,13 +26,12 @@ object MovieClient {
         val result = query.request(ENDPOINT).post()
         val actionMovies = result.movies
         for (movie in actionMovies) {
-            println(
-                """
-                    Title: ${movie.title}
-                    Genre: ${movie.genre}
-                    Year: ${movie.releaseDate.year}
-                    
-                    """.trimIndent()
+            println("""
+                Title: ${movie.title}
+                Genre: ${movie.genre}
+                Year: ${movie.releaseDate.year}
+                
+                """.trimIndent()
             )
         }
     }
@@ -46,13 +44,12 @@ object MovieClient {
         val review = ReviewInput.builder(5).withComment("Topnotch racing film.").build()
         val mutation = ReviewMutation.builder(movie.id, review).build()
         val createdReview = mutation.request(ENDPOINT).post().createReview
-        println(
-            """
-                Review for: ${movie.title}
-                Stars: ${createdReview.stars}
-                Comment: ${createdReview.comment}
-                
-                """.trimIndent()
+        println("""
+            Review for: ${movie.title}
+            Stars: ${createdReview.stars}
+            Comment: ${createdReview.comment}
+            
+            """.trimIndent()
         )
     }
 }

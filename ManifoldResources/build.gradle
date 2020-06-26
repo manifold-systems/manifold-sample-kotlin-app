@@ -11,6 +11,7 @@ sourceCompatibility = 8
 repositories {
     mavenLocal()
     mavenCentral()
+    jcenter()
 }
 
 configurations {
@@ -19,13 +20,13 @@ configurations {
 }
 
 dependencies {
-    compileOnly 'systems.manifold:manifold-graphql:2020.1.13'
-    implementation 'systems.manifold:manifold-graphql-rt:2020.1.13'
+    compileOnly "systems.manifold:manifold-graphql:${manifoldVersion}"
+    implementation "systems.manifold:manifold-graphql-rt:${manifoldVersion}"
 
     testImplementation 'junit:junit:4.12'
 
     // Add manifold to -processorpath for javac
-    annotationProcessor 'systems.manifold:manifold-graphql:2020.1.13'
+    annotationProcessor "systems.manifold:manifold-graphql:${manifoldVersion}"
 }
 
 tasks.withType(JavaCompile) {
