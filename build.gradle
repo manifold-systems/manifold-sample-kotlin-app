@@ -28,3 +28,12 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+task(runServer, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.example.server.MovieServer'
+    classpath = sourceSets.main.runtimeClasspath
+}
+task(runClient, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.example.client.MovieClient'
+    classpath = sourceSets.main.runtimeClasspath
+}
