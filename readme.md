@@ -1,5 +1,8 @@
 # Sample Kotlin Application
 
+>Simply write GraphQL queries and use them *directly* and *type-safely* from Koltin, no code gen steps, no data classes,
+>no annotations.
+
 Demonstrates the use of [Manifold](https://github.com/manifold-systems/manifold) with Kotlin. In particular this
 application uses [manifold-graphql](https://github.com/manifold-systems/manifold/tree/master/manifold-deps-parent/manifold-graphql)
 to show how resource files can be packaged in a separate Java module for use with Kotlin. Use this application as a
