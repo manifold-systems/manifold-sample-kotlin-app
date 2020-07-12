@@ -57,7 +57,7 @@ object Setup {
                      else
                         env.schema.getType(movies.Animal::class.java.simpleName)) as GraphQLObjectType }}
         GqlScalars.transformFormatTypeResolvers()
-            .forEach(Consumer<GraphQLScalarType> { scalarType: GraphQLScalarType? -> runtimeWiringBuilder.scalar(scalarType) })
+            .forEach(Consumer { scalarType: GraphQLScalarType? -> runtimeWiringBuilder.scalar(scalarType) })
         val runtimeWiring: RuntimeWiring = runtimeWiringBuilder.build()
         val schemaGenerator = SchemaGenerator()
         val graphQLSchema: GraphQLSchema = schemaGenerator.makeExecutableSchema(typeDefinitionRegistry, runtimeWiring)
@@ -75,10 +75,8 @@ object Setup {
         }
     }
 
-    private fun makeMappedFieldMatchingDataFetcherList(
-        list: Collection<IJsonBindingsBacked>,
-        mapper: Function<DataBindings, Set<DataBindings>>
-    ): DataFetcher<List<DataBindings>> {
+    private fun makeMappedFieldMatchingDataFetcherList(list: Collection<IJsonBindingsBacked>,
+            mapper: Function<DataBindings, Set<DataBindings>>): DataFetcher<List<DataBindings>> {
         return DataFetcher<List<DataBindings>> { env: DataFetchingEnvironment ->
             list.stream()
                 .filter { item: IJsonBindingsBacked ->

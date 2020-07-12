@@ -10,7 +10,7 @@ import com.example.schema.queries.*
  * This simple client demonstrates type-safe usage of the sample [queries] schema file `queries.graphql`
  * using Manifold.
  *
- * Remember to run the `MovieServer` before running this class :)
+ * Remember to run the [com.example.server.MovieServer] before running this class :)
  */
 object MovieClient {
     private const val ENDPOINT = "http://localhost:4567/graphql"
