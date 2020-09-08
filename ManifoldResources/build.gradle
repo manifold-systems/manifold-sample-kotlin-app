@@ -20,11 +20,8 @@ configurations {
 }
 
 dependencies {
-    compileOnly "systems.manifold:manifold-graphql:${manifoldVersion}"
     implementation "systems.manifold:manifold-graphql-rt:${manifoldVersion}"
-
     testImplementation 'junit:junit:4.12'
-
     // Add manifold to -processorpath for javac
     annotationProcessor "systems.manifold:manifold-graphql:${manifoldVersion}"
 }
