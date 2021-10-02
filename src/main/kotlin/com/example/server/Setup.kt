@@ -11,6 +11,7 @@ import manifold.ext.rt.RuntimeMethods
 import manifold.graphql.rt.api.GqlScalars
 import manifold.json.rt.api.DataBindings
 import manifold.json.rt.api.IJsonBindingsBacked
+import manifold.rt.api.Bindings
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.util.function.Consumer
@@ -30,7 +31,7 @@ object Setup {
             .type(movies.QueryRoot::class.java.simpleName) { builder: TypeRuntimeWiring.Builder -> builder
                 .dataFetcher("movies", makeFieldMatchingDataFetcherList(MovieData.instance.movies.values))
                 .dataFetcher("actors", makeMappedFieldMatchingDataFetcherList(MovieData.instance.movies.values,
-                    Function { e: DataBindings ->
+                    Function { e: Bindings ->
                         (e as Movie).cast.stream().map { c: movies.Role -> c.actor.bindings }
                             .collect(Collectors.toSet())
                     }))
@@ -64,8 +65,8 @@ object Setup {
         return graphql.GraphQL.newGraphQL(graphQLSchema).build()
     }
 
-    private fun makeFieldMatchingDataFetcherList(list: Collection<IJsonBindingsBacked>): DataFetcher<List<DataBindings>> {
-        return DataFetcher<List<DataBindings>> { env: DataFetchingEnvironment ->
+    private fun makeFieldMatchingDataFetcherList(list: Collection<IJsonBindingsBacked>): DataFetcher<List<Bindings>> {
+        return DataFetcher { env: DataFetchingEnvironment ->
             list.stream()
                 .filter { item: IJsonBindingsBacked -> env.arguments.entries.stream()
                     .allMatch { arg: Map.Entry<String, Any?> -> arg.value == null ||
@@ -76,8 +77,8 @@ object Setup {
     }
 
     private fun makeMappedFieldMatchingDataFetcherList(list: Collection<IJsonBindingsBacked>,
-            mapper: Function<DataBindings, Set<DataBindings>>): DataFetcher<List<DataBindings>> {
-        return DataFetcher<List<DataBindings>> { env: DataFetchingEnvironment ->
+            mapper: Function<Bindings, Set<Bindings>>): DataFetcher<List<Bindings>> {
+        return DataFetcher { env: DataFetchingEnvironment ->
             list.stream()
                 .filter { item: IJsonBindingsBacked ->
                     env.arguments.entries.stream()
@@ -90,18 +91,18 @@ object Setup {
                         }
                 }
                 .map { obj: IJsonBindingsBacked -> obj.bindings }
-                .map { t: DataBindings ->
+                .map { t: Bindings ->
                     mapper.apply(
                         t
                     )
                 }
-                .flatMap { obj: Set<DataBindings?> -> obj.stream() }
-                .collect(Collectors.toList<DataBindings>())
+                .flatMap { obj: Set<Bindings?> -> obj.stream() }
+                .collect(Collectors.toList<Bindings>())
         }
     }
 
-    private fun makeFieldMatchingDataFetcherSingle(list: Collection<IJsonBindingsBacked>): DataFetcher<DataBindings> {
-        return DataFetcher<DataBindings> { env: DataFetchingEnvironment ->
+    private fun makeFieldMatchingDataFetcherSingle(list: Collection<IJsonBindingsBacked>): DataFetcher<Bindings> {
+        return DataFetcher { env: DataFetchingEnvironment ->
             list.stream()
                 .filter { item: IJsonBindingsBacked ->
                     env.arguments.entries.stream()
@@ -118,18 +119,18 @@ object Setup {
         }
     }
 
-    private fun makeCreateReviewFetcher(): DataFetcher<DataBindings> {
-        return DataFetcher<DataBindings> { env: DataFetchingEnvironment ->
+    private fun makeCreateReviewFetcher(): DataFetcher<Bindings> {
+        return DataFetcher { env: DataFetchingEnvironment ->
             val review: movies.Review = MovieData.instance
                 .createReview(
                     env.getArgument("movieId"),
-                    ReviewInput { DataBindings(env.getArgument("review") as Map<String, Any>) })
+                    RuntimeMethods.coerce(DataBindings(env.getArgument("review") as Map<String, Any>), ReviewInput::class.javaObjectType) as ReviewInput)
             println(review.javaClass.toString() + " : " + review.toString())
             review.bindings
         }
     }
 
-    private fun isFieldMatch(bindings: DataBindings, arg: String, value: Any?): Boolean {
+    private fun isFieldMatch(bindings: Bindings, arg: String, value: Any?): Boolean {
         var actualValue = bindings[arg]
         if (value == null) {
             return actualValue == null

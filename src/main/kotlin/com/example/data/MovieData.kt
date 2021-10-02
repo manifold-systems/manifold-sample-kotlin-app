@@ -3,6 +3,7 @@ package com.example.data
 import com.example.schema.movies.*
 import com.example.schema.movies.Genre.*
 import com.example.schema.movies.Type.*
+import manifold.json.rt.api.DataBindings
 import java.time.LocalDate
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
