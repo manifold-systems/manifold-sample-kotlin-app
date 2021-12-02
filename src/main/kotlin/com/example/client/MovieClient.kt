@@ -27,9 +27,9 @@ object MovieClient {
         val actionMovies = result.movies
         for (movie in actionMovies) {
             println("""
-                Title: ${movie.title}
-                Genre: ${movie.genre}
-                Year: ${movie.releaseDate.year}
+                Title: ${movie.getTitle()}
+                Genre: ${movie.getGenre()}
+                Year: ${movie.getReleaseDate().year}
                 
                 """.trimIndent()
             )
@@ -45,9 +45,9 @@ object MovieClient {
         val mutation = ReviewMutation.builder(movie.id, review).build()
         val createdReview = mutation.request(ENDPOINT).post().createReview
         println("""
-            Review for: ${movie.title}
-            Stars: ${createdReview.stars}
-            Comment: ${createdReview.comment}
+            Review for: ${movie.getTitle()}
+            Stars: ${createdReview.getStars()}
+            Comment: ${createdReview.getComment()}
             
             """.trimIndent()
         )
