@@ -29,8 +29,6 @@ Run the `com.example.client.MovieClient` class to run a GraphQL client against t
 Install the Manifold plugin directly from IntelliJ:
 
 <kbd>Settings</kbd> ➜ <kbd>Plugins</kbd> ➜ <kbd>Marketplace</kbd> ➜ search: `Manifold` 
- 
->Note, the plugin is free for IntelliJ IDEA Community Edition and provides a JetBrains free trial for Ultimate Edition.
 
 ## Command Line
 
