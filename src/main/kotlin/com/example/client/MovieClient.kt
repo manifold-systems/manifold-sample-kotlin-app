@@ -31,8 +31,7 @@ object MovieClient {
                 Genre: ${movie.genre}
                 Year: ${movie.releaseDate.year}
                 
-                """.trimIndent()
-            )
+                """.trimIndent())
         }
     }
 
@@ -49,7 +48,6 @@ object MovieClient {
             Stars: ${createdReview.stars}
             Comment: ${createdReview.comment}
             
-            """.trimIndent()
-        )
+            """.trimIndent())
     }
 }
